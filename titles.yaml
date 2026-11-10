@@ -1,0 +1,84 @@
+# Target titles in priority order (rank 1 = most wanted).
+# `patterns` are case-insensitive regexes matched against the job title.
+# discover.py keeps a job if its title matches any pattern below OR any keyword in `keywords`.
+# score.py uses the best (lowest) matching rank as a tie-breaker.
+
+targets:
+  - rank: 1
+    name: Creative project / creative operations manager or director
+    patterns:
+      - 'creative (project|program|operations?|ops|production)\b'
+      - '(manager|director|head|lead).{0,30}creative (operations?|ops|production)'
+      - 'creative (project|program) (manager|director|lead)'
+  - rank: 2
+    name: Post-production manager, supervisor, or head of post
+    patterns:
+      - 'post[- ]?production'
+      - 'head of post\b'
+      - 'post (supervisor|manager)'
+  - rank: 3
+    name: Video or film production manager (in-house)
+    patterns:
+      - '(video|film|content|studio|media|brand) production (manager|director|lead|head|supervisor)'
+      - '(production manager|production lead|head of production).{0,30}(video|film|studio|content|media)?'
+      - 'video production'
+  - rank: 4
+    name: Technical program manager (media/tech)
+    patterns:
+      - 'technical program manag'
+      - '\btpm\b'
+  - rank: 5
+    name: Agentic AI or AI workflow lead (creative teams)
+    patterns:
+      - 'agentic'
+      - 'ai (workflow|operations|enablement|transformation).{0,30}(lead|manager|director|head)?'
+      - '(lead|manager|director|head).{0,30}\bai\b.{0,30}(workflow|creative|content)'
+
+keywords:
+  - post-production
+  - video production
+  - film
+  - creative operations
+  - creative project manager
+  - studio operations
+  - technical director
+  - director of production
+  - director of media
+  - creative arts director
+  # added 2026-10-15 after the first run showed relevant roles using these titles
+  - producer
+  - creative director
+  - creative lead
+  - head of creative
+  - creative management
+  - studio manager
+  - studio producer
+  - content production
+  # broadcast / AV / live streaming / creative ops / agentic AI titles
+  - broadcast
+  - live production
+  - live stream
+  - audiovisual
+  - audio visual
+  - media operations
+  - production operations
+  - video operations
+  - head of video
+  - director of video
+  - creative technologist
+  - creative technology
+  - ai workflow
+  - agentic
+
+# Titles matching any of these are dropped even if they match a pattern/keyword above
+# (engineering and research roles that only mention "AI"/"agentic").
+exclude:
+  - '\bengineer(s)?\b'
+  - 'software'
+  - '\bprogrammer\b'
+  - '\bdeveloper\b'
+  - '\bresearch(er)?\b'
+  - '\bscientist\b'
+  - '\barchitect\b'
+  - 'machine learning'
+  - '\bintern\b'

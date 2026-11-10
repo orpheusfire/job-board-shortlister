@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+# run state and output (generated, may reflect personal criteria)
+seen.json
+scored.json
+candidates.json
+shortlist.md
+rejected.md
+applications/

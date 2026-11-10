@@ -1,0 +1,128 @@
+# Example job criteria. Hard filters = fail any and the job is auto-rejected.
+# Everything else is scored out of 100. Edit freely; score.py reads this file on every run.
+
+hard_filters:
+  salary_min: 105000            # reject only if the posted range tops out below this
+  employment:
+    required: [W2, full-time, salaried]
+    reject_terms:               # matched against employment-type metadata, title, and description
+      - 1099
+      - contract
+      - contract-to-hire
+      - freelance
+      - hourly
+      - part-time
+      - temporary
+      - intern
+  work_mode: [remote, hybrid]   # on-site = reject
+  hybrid_location:              # a hybrid job must be inside this area, otherwise reject.
+    area: Chicagoland           # (remote jobs are not affected)
+    match: ["chicago", "chicagoland", "evanston", "oak park", "naperville", "schaumburg", "aurora, il", "joliet",
+            "elgin", "oak brook", "oakbrook", "rosemont", "skokie", "arlington heights", "downers grove", "lisle",
+            "itasca", "deerfield", "northbrook", "lombard", "wheaton", "glenview", "des plaines", "park ridge",
+            "cicero", "waukegan", "lake forest", "highland park, il", "elmhurst", "bolingbrook", "tinley park",
+            "orland park", "hoffman estates", "palatine", "mount prospect", "mt. prospect", "vernon hills",
+            "lincolnshire", "lincolnshire", "northfield", "wilmette", "winnetka", "oak lawn", "berwyn", "villa park",
+            "addison", "bensenville", "elk grove village", "rolling meadows", "buffalo grove", "wheeling",
+            "hammond, in", "gary, in", "merrillville", "munster", "kenosha", "naperville", "st. charles", "geneva, il",
+            "batavia, il", "warrenville", "westmont", "burr ridge", "hinsdale", "la grange", "libertyville"]
+  company_size_min: 200         # headcount estimates live in company_sizes.yaml
+  creative_component_required: true   # judged from title + description (see creative_signals)
+
+unknown_handling:
+  salary: verify                # not listed -> flag "verify", never reject
+  benefits: verify
+  work_mode: verify             # nothing says remote/hybrid/on-site -> keep, flag, score 0 for work mode
+  neutral_credit: 0.4           # fraction of category points given when the data is missing
+
+scoring:                        # sums to 100
+  creative:
+    points: 35
+  work_mode:
+    points: 25
+    remote: 1.0
+    hybrid: 0.4
+  benefits:
+    points: 20
+    parts:                      # share of the 20 points; each is "met" if any keyword appears
+      hsa_fsa: 6
+      dental: 4
+      vision: 4
+      medical: 6
+  salary_headroom:
+    points: 10
+    full_points_at: 168000      # 60% above the 105k floor earns the full 10
+  bonuses:
+    points: 10
+    parts:
+      company_paid_travel: 5
+      location_flexibility: 5
+
+# ---------------------------------------------------------------------------
+# Keyword lists used by score.py (lowercase, matched as whole words/phrases)
+# ---------------------------------------------------------------------------
+
+creative_signals:
+  # Title terms that make the creative component "core to the role" (regex fragments).
+  # A title hit still needs >= 1 strong term in the description (so "Roblox Studio" the product doesn't count).
+  core_title:
+    - creative
+    - post[- ]?production
+    - video
+    - film
+    - studio
+    - production
+    - editorial
+    - brand
+    - content
+    - design
+    - motion
+    - animation
+    - media
+  # Description terms. "strong" terms are unambiguous creative work; "weak" terms are only supporting evidence.
+  strong:
+    - creative
+    - post[- ]?production
+    - video
+    - film
+    - motion graphics
+    - animation
+    - storytelling
+    - art direction
+    - vfx
+    - editorial
+    - photography
+    - creative (team|operations|services|production)
+    - broadcast
+    - cinematic
+  weak:
+    - studio
+    - production
+    - brand
+    - design
+    - visual
+    - audio
+    - music
+    - content creation
+    - editing
+  # To pass when the TITLE is not creative: description needs >= this many distinct strong terms
+  # AND >= this many total strong-term mentions (keeps ad-tech / infra roles that merely say "creatives" out)
+  min_strong_distinct: 3
+  min_strong_mentions: 8
+
+# Benefits patterns are regexes (case-insensitive)
+benefits_keywords:
+  hsa_fsa: ['\bhsa\b', '\bfsa\b', 'health savings', 'flexible spending']
+  dental: ['\bdental\b']
+  vision: ['vision (insurance|coverage|care|plan|benefit)', 'dental\W{1,5}(and\s+)?vision', 'vision\W{1,3}(and\s+)?dental', '(medical|health)\W{1,5}(dental\W{1,5})?(and\s+)?vision']
+  medical: ['\bmedical\b', 'health insurance', 'healthcare', 'health care', 'health plan']
+  strong_medical: ['100% (of )?(the )?(premium|medical|health|covered)', 'fully (covered|paid)', 'premiums? (are )?(fully )?(paid|covered)', 'company[- ]paid (medical|health)', 'zero[- ]premium', '\$0 premium', 'employer[- ]paid']
+
+# Bonus patterns are regexes (case-insensitive)
+bonus_keywords:
+  company_paid_travel: ["company-paid travel", "company paid travel", "travel stipend", "paid travel", "travel budget", "team offsite", "offsites", "travel to", "annual retreat", "company retreat", "on-site visits", "travel opportunities", "travel up to", "travel required", "occasional travel", "frequent travel"]
+  location_flexibility: ["work from anywhere", "work-from-anywhere", "remote-first", "remote first", "fully remote", "work remotely from", "anywhere in the us", "anywhere in the u.s", "location flexib", "flexible location", "remote from anywhere", "distributed team", "digital nomad", "work from home anywhere", "100% remote"]
+
+work_mode_keywords:      # regexes; used to infer work mode from the description when the listing does not say
+  remote: ["remote", "work from home", "work-from-home", "distributed", "wfh"]
+  hybrid: ['hybrid (work|schedule|model|environment|arrangement|policy|setup|workplace|work-?style)', 'work(ing)? (a|in a) hybrid', 'this (role|position) is hybrid', '(in[- ]office|on[- ]site|in the office|in[- ]person).{0,50}\b(days?|times?) (a|per|each) week', '\b(one|two|three|four|1|2|3|4) days? (a|per|each) week (in|at|from) (the|our|your)', 'on-?site (on )?(mon|tues|wednes|thurs|fri)day', 'flex(ible)? office']

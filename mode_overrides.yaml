@@ -1,0 +1,12 @@
+# Optional, hand-verified work-mode facts. Used ONLY when a posting does not state
+# remote/hybrid/on-site itself. Anything sourced from here is flagged "verify" in the shortlist.
+company_default_mode: {}
+#  Example Co:
+#    mode: hybrid
+#    checked: 2026-01-01
+#    source: https://example.com/careers/work-policy
+#    note: Published in-office policy; postings only give an office city.
+
+# Per-job facts confirmed on the live posting page when the board API leaves them out.
+# Key format: "<platform>:<slug>:<job id>". Supported: salary [low, high], workplace_type, location_extra, checked, note.
+job_facts: {}

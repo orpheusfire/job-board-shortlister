@@ -1,0 +1,72 @@
+# Estimated headcount (rough, from memory of public figures). You spot-check these.
+# confidence: high = well known, low = guess that could be off by 50%+
+Netflix:                {employees: 14000, confidence: high}
+Spotify:                {employees: 7300,  confidence: high}
+Vimeo:                  {employees: 900,   confidence: medium}
+Warner Bros. Discovery: {employees: 35000, confidence: high}
+Paramount:              {employees: 18000, confidence: high}
+Vox Media:              {employees: 900,   confidence: medium}
+Condé Nast:             {employees: 4000,  confidence: medium}
+Dotdash Meredith:       {employees: 4000,  confidence: medium}
+Adobe:                  {employees: 30000, confidence: high}
+Figma:                  {employees: 1500,  confidence: medium}
+Canva:                  {employees: 5000,  confidence: medium}
+Descript:               {employees: 130,   confidence: low}
+Squarespace:            {employees: 1700,  confidence: medium}
+Wistia:                 {employees: 130,   confidence: low}
+Shutterstock:           {employees: 1500,  confidence: medium}
+Getty Images:           {employees: 1700,  confidence: medium}
+MasterClass:            {employees: 600,   confidence: medium}   # third-party estimates 300-800 (Oct 2026)
+Skillshare:             {employees: 150,   confidence: low}
+Coursera:               {employees: 1300,  confidence: medium}
+Duolingo:               {employees: 900,   confidence: high}
+Riot Games:             {employees: 3000,  confidence: medium}
+Epic Games:             {employees: 4000,  confidence: medium}
+Roblox:                 {employees: 2500,  confidence: high}
+Discord:                {employees: 700,   confidence: medium}
+Airbnb:                 {employees: 7000,  confidence: high}
+Peloton:                {employees: 2600,  confidence: medium}
+Reddit:                 {employees: 2300,  confidence: high}
+Pinterest:              {employees: 4500,  confidence: high}
+
+# Added 2026-10-16 (Chicago-office / creative-media expansion)
+Groupon: {employees: 1500, confidence: medium}
+Sprout Social: {employees: 1100, confidence: medium}
+Cameo: {employees: 100, confidence: low}
+project44: {employees: 1000, confidence: medium}
+G2: {employees: 600, confidence: medium}
+Enova: {employees: 1500, confidence: medium}
+Built In (Chicago): {employees: 150, confidence: low}
+Jellyvision: {employees: 120, confidence: low}
+The Trade Desk: {employees: 3000, confidence: high}
+Roku: {employees: 3500, confidence: high}
+Stripe: {employees: 8000, confidence: high}
+Instacart: {employees: 3200, confidence: high}
+Braze: {employees: 1700, confidence: medium}
+Glossier: {employees: 250, confidence: low}
+Webflow: {employees: 800, confidence: medium}
+Notion: {employees: 900, confidence: medium}
+Airtable: {employees: 600, confidence: medium}
+Miro: {employees: 1800, confidence: medium}
+Dropbox: {employees: 2500, confidence: high}
+Twitch: {employees: 1500, confidence: medium}
+Medium: {employees: 100, confidence: low}
+Substack: {employees: 150, confidence: low}
+Patreon: {employees: 400, confidence: low}
+Axios: {employees: 450, confidence: medium}
+Calm: {employees: 250, confidence: low}
+Strava: {employees: 450, confidence: medium}
+Twilio: {employees: 5000, confidence: high}
+Gusto: {employees: 2500, confidence: high}
+Asana: {employees: 1800, confidence: high}
+Thoughtworks: {employees: 10000, confidence: high}
+Mural: {employees: 250, confidence: low}
+Fastly: {employees: 1100, confidence: medium}
+Udemy: {employees: 1000, confidence: medium}
+Samsung Next: {employees: 30, confidence: low}
+VML (Wunderman Thompson): {employees: 25000, confidence: medium}
+R/GA: {employees: 1000, confidence: low}
+Qualtrics: {employees: 5000, confidence: high}
+Epidemic Sound: {employees: 600, confidence: medium}
+Philo: {employees: 150, confidence: low}
+Crunchyroll: {employees: 1000, confidence: medium}
